@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import itertools
 import torch
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from PIL import Image
 from torchvision import transforms
 from scipy.ndimage import center_of_mass
