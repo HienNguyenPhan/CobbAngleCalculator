@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 3.  **Use the infer.py script to predict the Cobb angle for a given image:**
 ```bash
-python infer.py [IMAGE_DIR] [CHECKPOINT_DIR]
+python infer.py [IMAGE_DIR]
 ```
 
 ## Model detail
