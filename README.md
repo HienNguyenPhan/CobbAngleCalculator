@@ -20,7 +20,7 @@ This project provides a deep learning-based tool for automatic Cobb angle estima
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.12.10
 - PyTorch
 - torchvision
 - numpy
