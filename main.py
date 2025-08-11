@@ -14,7 +14,7 @@ train_loader, val_loader, test_loader = load_and_create_dataloader(DATA_DIR_JSON
 model = Model()
 model = model.cuda()
 
-weights = torch.load("./data/imagenet.pth", map_location=torch.device('cuda')) 
+weights = torch.load("./imagenet.pth", map_location=torch.device('cuda')) 
 
 if '_conv_stem.weight' in weights:
     conv_stem = weights['_conv_stem.weight']
