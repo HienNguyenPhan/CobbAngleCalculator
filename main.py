@@ -1,21 +1,39 @@
 # Import
 import torch
 from data_loader import load_and_create_dataloader
-from model import DeepLabV3Plus
+from model import Model
 from train import train_one_epoch
 from eval import evaluate
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 DATA_DIR_JSON = "./data/default.json"
-IMAGE_DIR = "./images/"
+IMAGE_DIR = "data/images/"
 
 train_loader, val_loader, test_loader = load_and_create_dataloader(DATA_DIR_JSON, IMAGE_DIR)
 
-model = DeepLabV3Plus()
+model = Model()
+model = model.cuda()
+
+weights = torch.load("./data/imagenet.pth", map_location=torch.device('cuda')) 
+
+if '_conv_stem.weight' in weights:
+    conv_stem = weights['_conv_stem.weight']
+    weights['_conv_stem.weight'] = conv_stem.mean(dim=1, keepdim=True)
+
+weights = {k: v for k, v in weights.items() if not k.startswith('_fc')}
+
+model_dict = model.encoder.state_dict()
+filtered_weights = {}
+
+for k, v in weights.items():
+    if k in model_dict and model_dict[k].shape == v.shape:
+        filtered_weights[k] = v
+
+model.encoder.load_state_dict(filtered_weights, strict=False)
 
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 criterion = torch.nn.MSELoss()
-scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3, verbose=True)
+scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
 
 num_epochs = 200
 patience = 8
