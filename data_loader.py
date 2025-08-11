@@ -24,7 +24,7 @@ def load_and_create_dataloader(DATA_DIR_JSON, IMG_PATH):
     ])
 
     transform_val = A.Compose([
-        A.Normalize(mean=(0.485,), std=(0.229,  )),
+        A.Normalize(mean=(0.485,), std=(0.229,)),
         ToTensorV2()
     ])
 
