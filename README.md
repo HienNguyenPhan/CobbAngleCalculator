@@ -20,7 +20,7 @@ This project provides a deep learning-based tool for automatic Cobb angle estima
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.12.10
 - PyTorch
 - torchvision
 - numpy
@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 3.  **Use the infer.py script to predict the Cobb angle for a given image:**
 ```bash
-python infer.py [IMAGE_DIR] [CHECKPOINT_DIR]
+python infer.py [IMAGE_DIR]
 ```
 
 ## Model detail
