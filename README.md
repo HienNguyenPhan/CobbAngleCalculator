@@ -1,10 +1,11 @@
 # Cobb angle calculator
-This project provides a deep learning-based tool for automatic Cobb angle estimation from spinal X-ray images. It leverages a custom PyTorch model and utility functions to predict the Cobb angle and visualize keypoints on the input image.
+This project provides a deep learning-based tool for automatic Cobb angle estimation from cervical X-ray images. It leverages a custom Deep Learning model and utility functions to predict the Cobb angle and visualise keypoints, as well as vertebral masks on the input image.
 
 ## Features
 - **Automatic Cobb Angle Prediction**: Uses a trained neural network to estimate Cobb angles from grayscale X-ray images.
 - **Keypoint Detection**: Identifies anatomical landmarks required for Cobb angle calculation.
-- **Visualization**: Optionally displays the predicted keypoints and Cobb angle overlayed on the image.
+- **Vertabrae Segmentation**: Identifies anatomical masks required for Cobb angle calculation.
+- **Visualisation**: Optionally displays the predicted keypoints and Cobb angle overlayed on the image.
 
 ## Directory Structure
 ├── infer.py # Main inference script         
@@ -49,7 +50,7 @@ python infer.py [IMAGE_DIR]
 
 ## Model detail
 
-- The model is based on **DeepLabV3Plus** with an **EfficientNet-B4 encoder**.
+- The model uses the MiT-B4 encoder with Imagenet weight alongside a cross-task attention mechanism.
 
 - Accepts single-channel (grayscale) images resized to **256x256** pixels.
 
