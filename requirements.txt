@@ -1,10 +1,10 @@
 albumentations==2.0.8
 matplotlib==3.10.5
 numpy==2.3.2
-opencv_python_headless==4.11.0.86
+opencv-python-headless==4.11.0.86
 Pillow==11.3.0
-scikit_learn==1.7.1
+scikit-learn==1.7.1
 scipy==1.16.1
+segmentation-models-pytorch==0.3.4
 torch==2.8.0+cu128
-torchvision==0.23.0+cu128
 tqdm==4.67.1
