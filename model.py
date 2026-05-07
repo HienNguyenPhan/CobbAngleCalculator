@@ -82,10 +82,9 @@ class CervicalMultiTaskTransformer(nn.Module):
         self.heatmap_interaction = TaskInteractionModule(128)
         self.seg_interaction = TaskInteractionModule(128)
 
-        # Heads (Heatmap output=4, Seg output=1)
-        # Using ch[1] as the skip connection (usually 1/4 resolution)
+        # Heads (Heatmap output=4, Seg output=7 logits for 7 classes: 0=bg, 1-6=vertebra C2-C7)
         self.heatmap_head = TaskSpecificHead(128, ch[2], 4)
-        self.seg_head = TaskSpecificHead(128, ch[2], 1)
+        self.seg_head = TaskSpecificHead(128, ch[2], 7)
         
         self.dropout = nn.Dropout2d(0.2)
 
@@ -111,10 +110,10 @@ class CervicalMultiTaskTransformer(nn.Module):
         
         # Heads with Skip Connections (Point 2)
         heatmaps = self.heatmap_head(h_feat, features[2])
-        seg_mask = self.seg_head(s_feat, features[2])
+        seg_logits = self.seg_head(s_feat, features[2])
         
         # Final scale-up to original input resolution
         heatmaps = F.interpolate(heatmaps, size=input_size, mode='bilinear', align_corners=False)
-        seg_mask = F.interpolate(seg_mask, size=input_size, mode='bilinear', align_corners=False)
+        seg_logits = F.interpolate(seg_logits, size=input_size, mode='bilinear', align_corners=False)
         
-        return torch.cat([heatmaps, seg_mask], dim=1)
+        return torch.cat([heatmaps, seg_logits], dim=1)
