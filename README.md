@@ -54,5 +54,7 @@ python infer.py [IMAGE_DIR]
 
 - Accepts single-channel (grayscale) images resized to **256x256** pixels.
 
+- The checkpoint used can be found here: [Google Drive](https://drive.google.com/drive/folders/12efh74VKyuJhhpzJ38f_FkVzCfvgBXBV?usp=sharing)
+
 
 
